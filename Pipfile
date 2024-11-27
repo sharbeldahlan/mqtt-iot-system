@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "==3.1.0"
+flask-mqtt = "==1.2.1"
+python-dotenv = "==1.0.1"
+
+[dev-packages]
+pytest = "==8.3.3"
+pytest-cov = "==6.0.0"
+pytest-watch = "==4.2.0"
+flake8 = "==7.1.1"
+mypy = "==1.13.0"
+ruff = "==0.8.0"
+
+[requires]
+python_version = "3.12"
