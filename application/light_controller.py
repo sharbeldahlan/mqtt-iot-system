@@ -3,10 +3,20 @@ from typing import Callable
 
 from application.constants import Topic
 
+# Mapping circadian phases to light intensities
+PHASE_TO_INTENSITY: dict[str, int] = {
+    'sunrise': 50,
+    'morning': 100,
+    'sunset': 30,
+    'night': 5,
+}
+
 
 def handle_circadian_rhythm_message(payload: str) -> None:
     """Handle circadian rhythm messages and adjust light intensity."""
-    print(f'Received circadian rhythm message: {payload}')
+    print(f'\nReceived circadian rhythm message: {payload}')
+    light_intensity: int = PHASE_TO_INTENSITY.get(payload, 0)
+    print(f'Adjusting light to intensity: {light_intensity}%')
 
 
 def handle_motion_sensor_message(payload: str) -> None:
