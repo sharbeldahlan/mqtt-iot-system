@@ -33,3 +33,4 @@ def test_handle_motion_sensor_message(capsys):
     handle_motion_sensor_message('motion_detected')
     captured = capsys.readouterr()
     assert 'Received motion sensor message: motion_detected' in captured.out
+    assert 'Adjusting light to intensity: 100%' in captured.out

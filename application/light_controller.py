@@ -21,7 +21,8 @@ def handle_circadian_rhythm_message(payload: str) -> None:
 
 def handle_motion_sensor_message(payload: str) -> None:
     """Handle motion sensor messages and adjust light intensity."""
-    print(f'Received motion sensor message: {payload}')
+    print(f'\nReceived motion sensor message: {payload}')
+    print('Adjusting light to intensity: 100%')
 
 
 def setup_mqtt_callbacks(mqtt_client: Any) -> None:
