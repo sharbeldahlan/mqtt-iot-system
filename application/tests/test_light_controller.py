@@ -1,12 +1,10 @@
-from unittest.mock import (
-    Mock,
-    patch,
-)
+import pytest
+from unittest.mock import Mock
 
-from application.light_controller import setup_mqtt_callbacks
 from application.light_controller import (
     handle_circadian_rhythm_message,
     handle_motion_sensor_message,
+    setup_mqtt_callbacks,
 )
 
 
@@ -17,13 +15,21 @@ def test_handle_connect():
     mqtt_client.on_message.assert_called()
 
 
-def test_handle_circadian_rhythm_message():
-    with patch('builtins.print') as mock_print:
-        handle_circadian_rhythm_message('sunrise')
-        mock_print.assert_any_call("Adjusting light to intensity: 50%")
+@pytest.mark.parametrize('payload, expected_intensity', [
+    ('sunrise', 50),
+    ('morning', 100),
+    ('sunset', 30),
+    ('night', 5),
+    ('unknown', 0),
+])
+def test_handle_circadian_rhythm_message(payload, expected_intensity, capsys):
+    handle_circadian_rhythm_message(payload)
+    captured = capsys.readouterr()
+    assert f'Received circadian rhythm message: {payload}' in captured.out
+    assert f'Adjusting light to intensity: {expected_intensity}%' in captured.out
 
 
-def test_handle_motion_sensor_message():
-    with patch('builtins.print') as mock_print:
-        handle_motion_sensor_message('motion_detected')
-        mock_print.assert_called_with('Received motion sensor message: motion_detected')
+def test_handle_motion_sensor_message(capsys):
+    handle_motion_sensor_message('motion_detected')
+    captured = capsys.readouterr()
+    assert 'Received motion sensor message: motion_detected' in captured.out
