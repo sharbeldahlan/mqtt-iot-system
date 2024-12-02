@@ -1,4 +1,8 @@
 from flask import Flask
 
-# Initialize the Flask app
+from application.config import Config
+
+
+# Initialize the Flask app and load settings from Config
 app = Flask(__name__)
+app.config.from_object(Config)
