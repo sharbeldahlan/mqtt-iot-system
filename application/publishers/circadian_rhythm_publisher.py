@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 
 from application.config import Config
+from application.constants import Topic
 
 
 # Set up MQTT client
@@ -14,5 +15,5 @@ def publish_circadian_phase(phase: str) -> None:
     """
     Publish circadian phase to the MQTT broker.
     """
-    client.publish('iot/lights/circadian_rhythm', phase)
-    print(f'Published on topic --> "iot/lights/circadian_rhythm": {phase}')
+    client.publish(Topic.CIRCADIAN_RHYTHM, phase)
+    print(f'Published on topic --> {Topic.CIRCADIAN_RHYTHM}: {phase}')
